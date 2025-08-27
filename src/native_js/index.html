@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="main.css">
+    <title>Трекер привычек</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Редактирование привычки</h1>
+        <form id="from">
+
+            <div class="form-group">
+
+                <label for="habitName">Название привычки</label>
+
+                <input type="text" id="habitName" name="habitName" placeholder="Введите название привычки" required>
+
+                <br><br>
+
+            </div>
+
+            <div class="form-group">
+                <label for="habitDescription">Описание привычки:</label>
+
+                <br>
+
+                <textarea name="habitDescription" id="habitDescription" rows='5' placeholder="Опишите вашу привычку..." required></textarea>
+            
+                <br><br>
+            </div>
+
+            <div class="form-group">
+                
+                <label for="frequency">Частота выполнения
+
+                    <select name="frequency" id="frequency">
+
+                        <option value="1">Ежедневно</option>
+
+                        <option value="7">Еженедельно</option>
+
+                        <option value="30">Ежемесячно</option>
+
+                    </select>
+
+                </label>
+
+                <br>
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="period">Клдичество повторений <br>
+                    
+                    <input type="number" id="period" name="priod" placeholder="Введите количество повторений" required>
+
+                </label>
+
+            </div>
+
+            <div class="form-group">
+
+                Общее количество повторений
+
+                <span id="totalCount"></span>
+
+            </div>
+
+            <button type="submit">Сохранить изменения</button>
+
+            <script src="main.js"></script>
+
+        </form>
+    </div>
+</body>
+</html>
