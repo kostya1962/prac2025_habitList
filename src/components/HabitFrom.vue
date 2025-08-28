@@ -1,13 +1,14 @@
 <script setup>
-    import { reactive, ref, watch, defineModel } from "vue";
+    import { ref, watch, defineModel, defineEmits } from "vue";
 
     const count = ref();
-    const habit = defineModel({default: {name: "foo"}});
+    const model = defineModel({ default: { name: '', description: '', frequency: undefined, period: undefined } });
+    const emit = defineEmits(['save']);
 
-    const countTotal = (habit) => {
+    const countTotal = (model) => {
         let res = "Не подсчитано";
-        const frequencyValue = habit.frequency;
-        const periodValue = habit.period;
+        const frequencyValue = model.frequency;
+        const periodValue = model.period;
         if(frequencyValue == undefined  || periodValue == undefined ){
             count.value = res;
             return;
@@ -18,11 +19,13 @@
         count.value = res;
     }
 
-    watch(habit, countTotal);
+    watch(model, countTotal, { deep: true });
 
 
-    const submit = (ev) => {
-        console.log(JSON.stringify(habit))
+    const submit = () => {
+        const payload = { ...model.value };
+        emit('save', payload);
+        model.value = { name: '', description: '', frequency: 1, period: 1 };
     };
 </script>
 
@@ -32,17 +35,17 @@
             <form @submit.prevent="submit">
                 <div class="form-group">
                     <label for="habitName">Название привычки<br>
-                    <input type="text" name="habitName" placeholder="Введите название привычки" required v-model="habit.name"></label>
+                    <input type="text" name="habitName" placeholder="Введите название привычки" required v-model="model.name"></label>
                     <br><br>
                 </div>
                 <div class="form-group">
                     <label for="habitDescription">Описание:</label><br>
-                    <textarea name="habitDescription" rows="4" placeholder="Опишите вашу привычку" v-model="habit.description"></textarea>
+                    <textarea name="habitDescription" rows="4" placeholder="Опишите вашу привычку" v-model="model.description"></textarea>
                     <br><br>
                 </div>
                 <div class="form-group">
                     <label for="frequency">Частота выполнения:
-                    <select name="frequency" v-model="habit.frequency">
+                    <select name="frequency" v-model="model.frequency">
                         <option :value="1">Ежедневно</option>
                         <option :value="7">Еженедельно</option>
                         <option :value="30">Ежемесячно</option>                 
@@ -53,7 +56,7 @@
                 <div class="form-group">
                     <label for="period">Количество повторений <br/>
                     <input type="number" name="period" placeholder="Введите название привычки" required
-                        v-model="habit.period"/>
+                        v-model="model.period"/>
                     </label>
                     <br/><br/>
                 </div>

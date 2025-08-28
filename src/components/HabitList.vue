@@ -2,30 +2,11 @@
     import HabitItem from './HabitItem.vue';
     import { reactive, defineEmits } from 'vue';
 
-    const habits = reactive([{
-        name: "Зарядка",
-        frequency: 1,
-        period: 1,
-        description: "Бег 1 км с расвета"
-    },{
-        name: "Чтение",
-        frequency: 7,
-        period: 3,
-        description: "Чтение трёх глав в полдень"
-    },{
-        name: "Компьютерные игры",
-        frequency: 7,
-        period: 10,
-        description: "Прохождение 10 уровней видеоигры"
-    }]);
 
-    const emits = defineEmits({'select:habit': (ev) => {
-        return true;
-    }});
-
-    const deleteHandler = (idx) => {
-        habits.splice(idx, 1);
-    };
+    const props = defineProps({
+        habits: { type: Array, required: true }
+    });
+    const emit = defineEmits(['select:habit', 'delete:habit']);
 
 </script>
 
@@ -33,7 +14,7 @@
     <ul class="list">
         <HabitItem v-for="(item, idx) in habits" :item="item" :key="idx" @click="$emit('select:habit', item)" class="list-item">
             <template #action>
-                <button class="butt" @click.stop="deleteHandler(idx)">Удалить</button>
+                <button class="butt" @click.stop="emit('delete:habit', idx)">Удалить</button>
             </template>
         </HabitItem>
     </ul>
