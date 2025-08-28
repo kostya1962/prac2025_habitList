@@ -1,41 +1,46 @@
 <script setup>
+    import HabitItem from './HabitItem.vue';
+    import { reactive, defineEmits } from 'vue';
 
-import { reactive } from 'vue';
+    const habits = reactive([{
+        name: "Зарядка",
+        frequency: 1,
+        period: 1,
+        description: "Бег 1 км с расвета"
+    },{
+        name: "Чтение",
+        frequency: 7,
+        period: 3,
+        description: "Чтение трёх глав в полдень"
+    },{
+        name: "Компьютерные игры",
+        frequency: 7,
+        period: 10,
+        description: "Прохождение 10 уровней видеоигры"
+    }]);
 
-const habits = reactive([{
-    name: "Зарядка",
-    frequency: 1,
-    period: 1,
-    description: "Бег 1 км с расвета"
-},{
-    name: "Чтение",
-    frequency: 7,
-    period: 3,
-    description: "Чтение трёх глав в полдень"
-},{
-    name: "Компьютерные игры",
-    frequency: 7,
-    period: 10,
-    description: "Прохождение 10 уровней видеоигры"
-}]);
+    const emits = defineEmits({'select:habit': (ev) => {
+        return true;
+    }});
+
+    const deleteHandler = (idx) => {
+        habits.splice(idx, 1);
+    };
 
 </script>
+
 <template>
-<ul class="list">
-    <li class="container" v-for="habit,idx in habits" :key="idx" :habit="habit">
-        <div class="habit-head">{{ habit.name }}</div>
-        <div class="freq">
-            {{ habit.period }} раз
-            <span v-show="habit.frequency===1">ежеденевно</span>
-            <spna v-show="habit.frequency===7">еженедельно</spna>
-            <span v-show="habit.frequency===30">ежемесячно</span>
-        </div>
-    
-    </li>
-</ul>
+    <ul class="list">
+        <HabitItem v-for="(item, idx) in habits" :item="item" :key="idx" @click="$emit('select:habit', item)" class="list-item">
+            <template #action>
+                <button class="butt" @click.stop="deleteHandler(idx)">Удалить</button>
+            </template>
+        </HabitItem>
+    </ul>
 </template>
 
 <style scoped>
+
     .list {
         display: flex;
         flex-direction: column;
@@ -44,17 +49,32 @@ const habits = reactive([{
         min-width: 20rem;
     }
 
-    .container {
+    .butt{
+        background-color: var(--button-submit_bg);
+        border: none;
+        border-radius: 5px;
+        color: white;
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+        height: 7%; 
+    }
+
+        .list-item{
+        background-color: white;
+        border-radius: 1rem;
+        padding: 1rem;
+
+    }
+
+    .list-item:hover{
+        background-color: antiquewhite;
         cursor: pointer;
     }
-    .container:hover{
-        background-color: beige;
+
+    .butt:hover{
+        background-color: red;
+        cursor: pointer;
     }
-    .freq{
-        text-align: center;
-    }
-    .habit-head{
-        font-weight: 700;
-        text-align: center;
-    }
+
 </style>

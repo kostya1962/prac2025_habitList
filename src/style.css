@@ -1,6 +1,4 @@
-@import "./native_js/main.css";
-
-
+@import "/home/kostya/vue-app/native_js/main.css";
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -66,6 +64,8 @@ button:focus-visible {
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  display: grid;
+  grid-template-columns: 1fr minmax(20rem, auto);
 }
 
 @media (prefers-color-scheme: light) {

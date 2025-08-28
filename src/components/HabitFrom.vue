@@ -1,9 +1,8 @@
 <script setup>
-    import { reactive, ref, watch } from "vue";
-
+    import { reactive, ref, watch, defineModel } from "vue";
 
     const count = ref();
-    const habit = reactive({})
+    const habit = defineModel({default: {name: "foo"}});
 
     const countTotal = (habit) => {
         let res = "Не подсчитано";
@@ -11,7 +10,7 @@
         const periodValue = habit.period;
         if(frequencyValue == undefined  || periodValue == undefined ){
             count.value = res;
-            return
+            return;
         }
         else {
             res = (frequencyValue * periodValue);

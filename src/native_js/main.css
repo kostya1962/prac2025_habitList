@@ -5,6 +5,15 @@
     --button-submit_bg: rgb(62, 207, 212);
     --button--hovered__bg: rgba(45, 140, 143, 55);
 
+    font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
 }
 
 body {
